@@ -1,8 +1,9 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
 import Button from "../UI/Button/Button";
+import AuthContext from "../store/auth-context";
 
 const emailReducer = (state, action) => {
   if (action.type === "USER_INPUT") {
@@ -43,6 +44,7 @@ const Login = (props) => {
       clearTimeout(identifier);
     };
   }, [emailState.value, passwordState.value]);
+
   const emailChangeHandler = (event) => {
     dipatchEmailState({ type: "USER_INPUT", value: event.target.value });
   };
@@ -64,6 +66,7 @@ const Login = (props) => {
     props.onLogin(emailState.value, passwordState.value);
   };
 
+  const ctx = useContext(AuthContext);
   return (
     <Card className={classes.login}>
       <form onSubmit={submitHandler}>
@@ -96,7 +99,12 @@ const Login = (props) => {
           />
         </div>
         <div className={classes.actions}>
-          <Button type="submit" className={classes.btn} disabled={!formIsValid}>
+          <Button
+            type="submit"
+            className={classes.btn}
+            disabled={!formIsValid}
+            onClick={ctx.onLogIn}
+          >
             Login
           </Button>
         </div>
