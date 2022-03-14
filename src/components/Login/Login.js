@@ -70,7 +70,7 @@ const Login = (props) => {
   };
 
   const validatePasswordHandler = () => {
-    dipatchEmailState({ type: "INPUT_BLUR" });
+    dipatchPasswordState({ type: "INPUT_BLUR" });
   };
 
   const submitHandler = (event) => {
